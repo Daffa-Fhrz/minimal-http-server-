@@ -2,12 +2,12 @@
 #include <winsock2.h>
 #include <windows.h>
 
-// #pragma comment(lib, "ws2_32.lib")
+#pragma comment(lib, "ws2_32.lib")
 
 int main()
 {
 
-
+	// initializing socket
 	printf("\nInitialising Winsock...");
 
 	WSADATA wsa;
@@ -23,18 +23,19 @@ int main()
 	addr.sin_addr.s_addr = INADDR_ANY;
 	addr.sin_port = htons(8080);
 
+	// binding
 	if (bind(s, (struct sockaddr*) &addr, sizeof(addr)) != 0) {
 		printf("\nfailed to bind");
 		return 1;	
 	}
 
-
+	// listen
 	if (listen(s, 0) !=0) {
 		printf("\nfailed to listen");
 		return 1;	
 	}
 
-
+	// respond to request from client
 	while(1) {	
 		char request[256] = {0};
 
